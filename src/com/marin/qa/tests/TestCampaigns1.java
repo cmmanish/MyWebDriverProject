@@ -50,5 +50,9 @@ public class TestCampaigns1 extends WebdriverBaseClass {
     public void E3testSingleCreateGoogleShoppingCampaignNonUS() throws Exception {
         log.info("E3");
     }
+    @Test
+    public void E4testSingleCreateGoogleShoppingCampaignNonUS() throws Exception {
+        log.info("E4");
+    }
 
 }
