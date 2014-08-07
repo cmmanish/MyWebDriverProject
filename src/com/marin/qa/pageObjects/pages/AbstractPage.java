@@ -4,12 +4,13 @@ import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import com.thoughtworks.selenium.SeleniumException;
 
-public class AbstractPage {
+public abstract class AbstractPage {
 
     static Logger log = Logger.getLogger(AbstractPage.class);
     public static final long LONG_PAGE_TIMEOUT = 121000;
@@ -26,7 +27,8 @@ public class AbstractPage {
     public static final String BUBBLE_CONTAINER = "#bubble_container";
     public static final String PROGRESS_GRID_CONTAINER = "#progress_grid_container";
     public static final String SAVE_VIEW_CONTAINER_ID = "#addRemoveView_container_contents";
-
+    public static final String PROCESSING_GRID_CONTRAINER = "#progress_grid_container";
+    
     synchronized public static void wait(int n) {
 
         try {
@@ -52,14 +54,36 @@ public class AbstractPage {
     public void waitForJQuery(WebDriver driver) {
 
         try {
-            String query = "return $.active == 0";
-            String retval = (String) ((JavascriptExecutor) driver).executeScript(query);
+            (new WebDriverWait(driver, 10)).until(new ExpectedCondition<Boolean>() {
+                public Boolean apply(WebDriver d) {
+                    JavascriptExecutor js = (JavascriptExecutor) d;
+                    return (Boolean) js.executeScript("return $.active == 0");
+                }
+            });
         }
 
         catch (Exception e) {
             log.error("Failed to load jQuery on page in " + JQUERY_TIMEOUT + " msec");
         }
 
+    }
+    
+    public void waitForAjaxRequestDone(final WebDriver driver, final String timeout) {
+
+        waitForJQuery(driver);
+
+            try {
+                (new WebDriverWait(driver, 10)).until(new ExpectedCondition<Boolean>() {
+                    public Boolean apply(WebDriver d) {
+                        JavascriptExecutor js = (JavascriptExecutor) d;
+                        return (Boolean) js.executeScript("return $$.active == 0");
+                    }
+                });
+           
+        }
+        catch (Exception e) {
+            log.error("Failed to wait for no AJAX activity on page in " + timeout + " msec");
+        }
     }
 
     /**
@@ -74,7 +98,7 @@ public class AbstractPage {
         try {
 
             WebDriverWait wait = new WebDriverWait(driver, timeout);
-            wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("top_right_logout_link")));
+            //wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("top_right_logout_link")));
 
         }
         catch (Exception e) {
@@ -82,17 +106,22 @@ public class AbstractPage {
         }
     }
 
-    public void waitForElementToBePresent(WebDriver driver, String locator) {
+    public void waitForElementToBeAppear(WebDriver driver, String locator) {
 
-        String query = locator + ".length > 0";
+        final String query = "return $('" + locator + "').length > 0";
         waitForJQuery(driver);
 
         try {
-            String retval = (String) ((JavascriptExecutor) driver).executeScript(query);
-            // selenium.waitForCondition("selenium.browserbot.getCurrentWindow().$('" + locator + "').length > 0;", ELEMENT_TIMEOUT);
+            (new WebDriverWait(driver, 10)).until(new ExpectedCondition<Boolean>() {
+                public Boolean apply(WebDriver d) {
+                    JavascriptExecutor js = (JavascriptExecutor) d;
+                    return (Boolean) js.executeScript(query);
+                }
+            });
         }
+
         catch (Exception e) {
-            log.error("Failed to wait for element appear on page in " + ELEMENT_TIMEOUT + " msec");
+            log.error("Failed to load jQuery on page in " + JQUERY_TIMEOUT + " msec");
         }
     }
 
@@ -106,18 +135,67 @@ public class AbstractPage {
      * @param locator
      *        The Element locator.
      */
-    public void waitForElementNotToBeVisible(WebDriver driver, String locator) {
-        String query = "$('" + locator + "').is(':visible') == false;, ELEMENT_TIMEOUT";
-        waitForJQuery(driver);
-
+    public void waitForSpinnerToDissappear(WebDriver driver, String locator) {
+        String query = "return $('" + locator + "').length == 1;";
+        //wait for the spinner do dissappear i.e length == 0 
         try {
-            String retval = (String) ((JavascriptExecutor) driver).executeScript(query);
-
+            boolean retval = (Boolean) ((JavascriptExecutor) driver).executeScript(query);
+            while (retval){
+                wait(300);
+                retval = (Boolean) ((JavascriptExecutor) driver).executeScript(query);
+            }
+            
         }
         catch (Exception e) {
             log.error("Failed to wait for element visible on page in " + ELEMENT_TIMEOUT + " msec");
         }
 
+    }
+    
+    /**
+     * This method waits for an element not to be visible.
+     * 
+     * Requires current selenium object to work with.
+     *
+     * @param selenium
+     *        The selenium instances currently in work.
+     * @param locator
+     *        The Element locator.
+     */
+    public void waitForElementToDissappear(WebDriver driver, String locator) {
+        final String query = "return $('" + locator + "').length == 0;";
+        //wait for the spinner do dissappear i.e length == 0 
+        try {
+            (new WebDriverWait(driver, 10)).until(new ExpectedCondition<Boolean>() {
+                public Boolean apply(WebDriver d) {
+                    JavascriptExecutor js = (JavascriptExecutor) d;
+                    return (Boolean) js.executeScript(query);
+                }
+            });
+        }
+        catch (Exception e) {
+            log.error("Failed to load jQuery on page in " + JQUERY_TIMEOUT + " msec");
+        }
+    }
+    
+    public boolean waitForDropDownElementToBePopulated(WebDriver driver, String locator) {
+        final String query = "return $('" + locator + "').children().length > 1";
+        final boolean retval = false;
+        waitForJQuery(driver);
+
+        try {
+            (new WebDriverWait(driver, 10)).until(new ExpectedCondition<Boolean>() {
+                public Boolean apply(WebDriver d) {
+                    JavascriptExecutor js = (JavascriptExecutor) d;
+                    return (Boolean) js.executeScript(query);
+                }
+            });
+        }
+
+        catch (Exception e) {
+            log.error("Failed to load jQuery on page in " + JQUERY_TIMEOUT + " msec");
+        }
+        return retval;
     }
 
     /**

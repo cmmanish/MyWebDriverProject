@@ -29,7 +29,7 @@ public class BulkAddEditCampaignsPage extends AbstractPage {
 	 * @version 2.00
 	 * @param locator as jQuery mapping for Label element
 	 * @param description as description for Label element
-	 * @author Michael Beider
+	 * @author mmadhusoodan
 	 */
 	public static enum Label {
 		
@@ -61,7 +61,7 @@ public class BulkAddEditCampaignsPage extends AbstractPage {
 	 * @param spinner as jQuery mapping for spinner 
 	 * @param pageLoad as jQuery mapping for pageLoad 
 	 * @param description as description for Link element
-	 * @author Michael Beider
+	 * @author mmadhusoodan
 	 */
 	public static enum Link {
 		
@@ -112,7 +112,7 @@ public class BulkAddEditCampaignsPage extends AbstractPage {
 	 * @param spinner as jQuery mapping for spinner 
 	 * @param pageLoad as jQuery mapping for pageLoad 
 	 * @param description as description for Radio button element
-	 * @author Michael Beider
+	 * @author mmadhusoodan
 	 */
 	public static enum Radio {
 		
@@ -163,7 +163,7 @@ public class BulkAddEditCampaignsPage extends AbstractPage {
 	 * @param spinner as jQuery mapping for spinner 
 	 * @param pageLoad as jQuery mapping for pageLoad 
 	 * @param description as description for DropDownMenu element
-	 * @author Michael Beider
+	 * @author mmadhusoodan
 	 */
 	public static enum DropDownMenu {
 		
@@ -205,7 +205,7 @@ public class BulkAddEditCampaignsPage extends AbstractPage {
 	 * @version 2.00
 	 * @param locator as jQuery mapping for text input element
 	 * @param description as description for Text Input element
-	 * @author Michael Beider
+	 * @author mmadhusoodan
 	 */
 	public static enum TextArea {
 		
@@ -237,7 +237,7 @@ public class BulkAddEditCampaignsPage extends AbstractPage {
 	 * @param spinner as jQuery mapping for spinner 
 	 * @param pageLoad as jQuery mapping for pageLoad 
 	 * @param description as description for Button element
-	 * @author Michael Beider
+	 * @author mmadhusoodan
 	 */
 	public static enum Button {
 		

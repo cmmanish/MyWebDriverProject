@@ -154,7 +154,7 @@ public class LoginPage extends AbstractPage {
      * 
      */
 
-    public LoginPage type(WebDriver driver, TextInput input, String text) {
+    public LoginPage setText(WebDriver driver, TextInput input, String text) {
 
         String query = "$('" + input.getLocator() + "').val('" + text + "').trigger('keyup');";
         if (isElementPresent(driver, input.getLocator()) == true) {
@@ -177,7 +177,7 @@ public class LoginPage extends AbstractPage {
      * @return LoginPage
      * 
      */
-    public LoginPage click(WebDriver driver, Button button) {
+    public LoginPage clickButton(WebDriver driver, Button button) {
 
         String query = "$('" + button.getLocator() + "').click();";
         if (isElementPresent(driver, button.getLocator())) {
@@ -226,11 +226,11 @@ public class LoginPage extends AbstractPage {
     public void login(WebDriver driver, String email, String password) {
 
         // Type email, password and click on "Sign in" button
-        waitForElementToBePresent(driver, TextInput.Email.getLocator());
-        waitForElementToBePresent(driver, Button.Signin.getLocator());
-        type(driver, TextInput.Email, email);
-        type(driver, TextInput.Password, password);
-        click(driver, Button.Signin);
+        waitForElementToBeAppear(driver, TextInput.Email.getLocator());
+        waitForElementToBeAppear(driver, Button.Signin.getLocator());
+        setText(driver, TextInput.Email, email);
+        setText(driver, TextInput.Password, password);
+        clickButton(driver, Button.Signin);
     }
 
 }

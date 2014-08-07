@@ -21,7 +21,6 @@
 	<classpathentry kind="lib" path="lib/junit-4.4-javadoc.jar"/>
 	<classpathentry kind="lib" path="lib/junit-4.4-sources.jar"/>
 	<classpathentry kind="lib" path="lib/junit-4.4.jar"/>
-	<classpathentry kind="lib" path="lib/log4j-1.2.14.jar"/>
 	<classpathentry kind="lib" path="lib/selenium-2.42.2/libs/apache-mime4j-0.6.jar"/>
 	<classpathentry kind="lib" path="lib/selenium-2.42.2/libs/bsh-1.3.0.jar"/>
 	<classpathentry kind="lib" path="lib/selenium-2.42.2/libs/cglib-nodep-2.1_3.jar"/>
@@ -59,5 +58,9 @@
 	<classpathentry kind="lib" path="lib/selenium-2.42.2/libs/xalan-2.7.1.jar"/>
 	<classpathentry kind="lib" path="lib/selenium-2.42.2/libs/xercesImpl-2.11.0.jar"/>
 	<classpathentry kind="lib" path="lib/selenium-2.42.2/libs/xml-apis-1.4.01.jar"/>
+	<classpathentry kind="lib" path="/Users/mmadhusoodan/qa/workspace/MyWebdriverProject/lib/common-lang3.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
+	<classpathentry kind="lib" path="lib/common-lang3.jar"/>
+	<classpathentry kind="lib" path="lib/log4j-1.2.14.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

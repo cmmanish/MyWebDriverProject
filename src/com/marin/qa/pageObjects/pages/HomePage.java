@@ -128,10 +128,10 @@ public class HomePage extends AbstractPage {
         Placements("#tabs_container a:contains(\"Placements\")", null, true, "Placements"), 
         ProductTargets("#tabs_container a:contains(\"Product Targets\")", null, true, "Product Targets"),
         Bidding("#tabs_container a:contains(\"Bidding\")", null, true, "Bidding"), 
-                Dimensions("#tabs_container a:contains(\"Dimensions\")", null, true, "Dimensions"), 
-                Segments("#tabs_container a:contains(\"Segments\")", null, true, "Segments"), 
-                Dashboard("#sub_navigation_container a:contains(\"Dashboard\")", null, true, "Dashboard"),
-                History("#sub_navigation_container a:contains(\"History\")", null, true, "History");
+        Dimensions("#tabs_container a:contains(\"Dimensions\")", null, true, "Dimensions"), 
+        Segments("#tabs_container a:contains(\"Segments\")", null, true, "Segments"), 
+        Dashboard("#sub_navigation_container a:contains(\"Dashboard\")", null, true, "Dashboard"),
+        History("#sub_navigation_container a:contains(\"History\")", null, true, "History");
 
         private String locator;
         private String spinner;
@@ -183,7 +183,7 @@ public class HomePage extends AbstractPage {
         Admin("#acc_left a:eq(0)", "#grid_overlay_operation_table, #progress_grid_container", true, "Admin"), 
         Reports("#acc_left a:eq(1)", null, false, "Reports"), 
         Help("#acc_left a:eq(2)", null,false, "Help"), 
-        Logout("#acc_left a:eq(3)", null, true, "Logout");
+        Logout("#top_right_logout_link", null, false, "Logout");
 
         private String locator;
         private String spinner;
@@ -239,7 +239,7 @@ public class HomePage extends AbstractPage {
             }
 
             if (tab.getSpinner() != null) {
-                waitForElementNotToBeVisible(driver, tab.getSpinner());
+                waitForElementToDissappear(driver, tab.getSpinner());
             }
         }
 
@@ -256,7 +256,7 @@ public class HomePage extends AbstractPage {
      */
     public void click(WebDriver driver, Link link) {
         String query = "$('" + link.getLocator() + "')[0].click();";
-        if (isElementPresent(driver, link.getLocator()) == true) {
+        if (isElementPresent(driver, link.getLocator())) {
             changeElementBackground(driver, link.getLocator());
             wait(100);
             removeElementBackground(driver, link.getLocator());
@@ -268,7 +268,7 @@ public class HomePage extends AbstractPage {
             }
 
             if (link.getSpinner() != null) {
-                waitForElementNotToBeVisible(driver, link.getSpinner());
+                waitForElementToDissappear(driver, link.getSpinner());
             }
         }
     }
